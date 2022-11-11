@@ -19,7 +19,7 @@ ds['Credit_Mix'] = LabelEncoder().fit_transform(ds['Credit_Mix'])
 ds['Payment_Behaviour'] = LabelEncoder().fit_transform(ds['Payment_Behaviour'])
 ds.head()
 #again
-ds.corr()
+#ds.corr()
 ds.describe() #statistical summary
 ds.info() 
 ds.shape
