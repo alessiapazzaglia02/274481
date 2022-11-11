@@ -10,7 +10,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-ds = pd.read_csv("C:/Users/user/Desktop/credit_prediction.csv") #open and read the file using pandas
+ds = pd.read_csv("./credit_prediction.csv") #open and read the file using pandas
 #Evaluation
 ds.head() #show the first elements
 ds.corr() #to see correlations, but all categorical ones will be ignored, so change them
@@ -45,7 +45,7 @@ from scipy import stats
 
 df =pd.DataFrame({'Age':[int(i) for i in ds['Age']]})
 df['z_score']=stats.zscore(df['Age'])
-df.loc[df['z_score'].abs()<=3]
+df_no = df.loc[df['z_score'].abs()<=3]
 
 
 df1 =pd.DataFrame({'Num_Bank_Accounts':[int(i) for i in ds['Num_Bank_Accounts']]})
