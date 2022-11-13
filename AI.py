@@ -1,26 +1,24 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov  8 11:36:57 2022
-
-@author: user
-"""
-
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 ds = pd.read_csv("./credit_prediction.csv") #open and read the file using pandas
+
+#ds = pd.read_csv("C:/Users/matte/Desktop/274481/credit_prediction.csv")
+
 #Evaluation
 ds.head() #show the first elements
-ds.corr() #to see correlations, but all categorical ones will be ignored, so change them
+correlation = ds.corr() #to see correlations, but all categorical ones will be ignored, so change them
+
 from sklearn.preprocessing import LabelEncoder
 ds['Credit_Mix'] = LabelEncoder().fit_transform(ds['Credit_Mix'])
 ds['Payment_Behaviour'] = LabelEncoder().fit_transform(ds['Payment_Behaviour'])
+
 ds.head()
 #again
 ds.corr()
-ds.describe() #statistical summary
+description = ds.describe() #statistical summary
 ds.info() 
 ds.shape
 print(pd.value_counts(ds['Credit_Score']))
@@ -86,3 +84,14 @@ y_pred = classifier.predict(X_test)
 from sklearn.model_selection import cross_val_score
 scores = cross_val_score(classifier, X_train, y_train, cv=10)
 print(scores)
+
+
+
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import classification_report
+param_grid = {'kernel':('linear', 'rbf', 'poly', 'sigmoid'), 'C':[0.1,1, 10, 100]}
+classifier = SVC()
+clf = GridSearchCV(classifier, param_grid)
+clf.fit(X_train,y_train)
+y_pred = clf.best_estimator_.predict(X_test) # this contains the best trained classifier
+print(classification_report(y_test, y_pred))
