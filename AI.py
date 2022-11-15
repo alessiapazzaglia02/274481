@@ -14,6 +14,7 @@ correlation = ds.corr() #to see correlations, but all categorical ones will be i
 from sklearn.preprocessing import LabelEncoder
 ds['Credit_Mix'] = LabelEncoder().fit_transform(ds['Credit_Mix'])
 ds['Payment_Behaviour'] = LabelEncoder().fit_transform(ds['Payment_Behaviour'])
+ds['Credit_Score'] = LabelEncoder().fit_transform(ds['Credit_Score'])
 
 ds.head()
 #again
@@ -70,25 +71,48 @@ from sklearn.svm import SVC
 #from sklearn.tree import DecisionTreeClassifier
 from sklearn import neighbors
 from xgboost import XGBClassifier
-model = "SVC"
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import classification_report
+model = "b"
 
 if model == "SVC":
-    classifier = SVC(kernel = 'linear', random_state = 0)
+    #classifier = SVC(kernel = 'linear', random_state = 0)
+    param_grid = {'kernel':('linear', 'rbf', 'poly', 'sigmoid'), 'C':[0.1,1, 10, 100]}
+    classifier = SVC()
+    clf = GridSearchCV(classifier, param_grid)
+    clf.fit(X_train,y_train)
 elif model=="C":
-    classifier = XGBClassifier() #using XGboost as more efficient 
+    classifier = XGBClassifier(use_label_encoder=False) #using XGboost as more efficient 
 else :
-    classifier = neighbors.KNeighborsClassifier(n_neighbors = 3, weights='uniform')
+    k_range = list(range(5, 7))
+    param_grid = dict(n_neighbors=k_range)
+    knn = neighbors.KNeighborsClassifier()
+    # defining parameter range
+    grid = GridSearchCV(knn, param_grid, cv=10, scoring='accuracy', return_train_score=False,verbose=1)
+  
+    # fitting the model for grid search
+    grid_search=grid.fit(X_train, y_train)
+    #param_grid = {'n_neighbors':[3,5,7], 'weights':[0.1,1, 10, 100]}
+    #classifier = SVC()
+    #clf = GridSearchCV(classifier, param_grid)
+    #clf.fit(X_train,y_train)
+    #classifier = neighbors.KNeighborsClassifier(n_neighbors = 3, weights='uniform')
 
-classifier.fit(X_train, y_train)
-y_pred = classifier.predict(X_test)
+'''
+y_pred = clf.best_estimator_.predict(X_test) # this contains the best trained classifier
+print(classification_report(y_test, y_pred))
+'''
+#classifier.fit(X_train, y_train)
+#y_pred = classifier.predict(X_test)
+y_pred = grid.predict(X_test)
+print(classification_report(y_test, y_pred))
 from sklearn.model_selection import cross_val_score
 scores = cross_val_score(classifier, X_train, y_train, cv=10)
 print(scores)
 
 
 
-from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import classification_report
+
 param_grid = {'kernel':('linear', 'rbf', 'poly', 'sigmoid'), 'C':[0.1,1, 10, 100]}
 classifier = SVC()
 clf = GridSearchCV(classifier, param_grid)
