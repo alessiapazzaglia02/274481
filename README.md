@@ -2,7 +2,7 @@
 TITLE: 
 Credit Prediction
 MEMBERS: 
-Alberto De Leo (274481), Alessia Pazzaglia (269441), Matteo Policastro (276761)
+Alberto de Leo (274481), Alessia Pazzaglia (269441), Matteo Policastro (276761)
 DESCRIPTION: 
 The aim of this project is to divide the users of the greatest financial company in the world into three credit score brackets: Poor, Standard and Good. This company has collected bank details and credit-related information from all over the globe, so our goal is to help it developing targeted products for each group.
 APPROACHES:

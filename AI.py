@@ -44,16 +44,16 @@ from scipy import stats
 
 df =pd.DataFrame({'Age':[int(i) for i in ds['Age']]})
 df['z_score']=stats.zscore(df['Age'])
-df_no = df.loc[df['z_score'].abs()<=3]
+df_no = df.loc[df['z_score'].abs()<2.9]
 
 
 df1 =pd.DataFrame({'Num_Bank_Accounts':[int(i) for i in ds['Num_Bank_Accounts']]})
 df1['z_score']=stats.zscore(df1['Num_Bank_Accounts'])
-df1.loc[df1['z_score'].abs()<=3]
+df1.loc[df1['z_score'].abs()<3.0]
 
 df2 =pd.DataFrame({'Monthly_Inhand_Salary':[int(i) for i in ds['Monthly_Inhand_Salary']]})
 df2['z_score']=stats.zscore(df2['Monthly_Inhand_Salary'])
-df2.loc[df1['z_score'].abs()<=3]
+df2.loc[df1['z_score'].abs()<3.0]
 
 
 #start the splitting
