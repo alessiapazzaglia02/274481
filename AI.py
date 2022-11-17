@@ -14,7 +14,7 @@ correlation = ds.corr() #to see correlations, but all categorical ones will be i
 from sklearn.preprocessing import LabelEncoder
 ds['Credit_Mix'] = LabelEncoder().fit_transform(ds['Credit_Mix'])
 ds['Payment_Behaviour'] = LabelEncoder().fit_transform(ds['Payment_Behaviour'])
-ds['Credit_Score'] = LabelEncoder().fit_transform(ds['Credit_Score'])
+#ds['Credit_Score'] = LabelEncoder().fit_transform(ds['Credit_Score'])
 
 ds.head()
 #again
