@@ -3,7 +3,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-ds = pd.read_csv("./credit_prediction.csv") #open and read the file using pandas
+ds = pd.read_csv('C:/Users/alber/Documents/GitHub/274481/credit_prediction.csv') #open and read the file using pandas
 
 #ds = pd.read_csv("C:/Users/matte/Desktop/274481/credit_prediction.csv")
 
@@ -40,11 +40,37 @@ X = ds.iloc[:, :-1].values
 y = ds.iloc[:, -1].values
 
 #remove outliers
+
+
+from numpy import percentile
+q25, q75 = percentile(ds['Annual_Income'], 25), percentile(ds['Annual_Income'], 75)
+iqr = q75 - q25
+print('Percentiles: 25th=%.3f, 75th=%.3f, IQR=%.3f' % (q25, q75, iqr))
+
+
+cut_off = iqr * 1.5
+lower, upper = q25 - cut_off, q75 + cut_off
+
+outliers = [x for x in ds['Annual_Income'] if x < lower or x > upper]
+print('Identified outliers: %d' % len(outliers))
+
+outliers_removed = [x for x in ds['Annual_Income'] if x > lower and x < upper]
+print('Non-outlier observations: %d' % len(outliers_removed))
+
+annual_income_mean = ds['Annual_Income'].mean()
+
+
+
+for i in outliers:
+    ds['Annual_Income'] = ds['Annual_Income'].replace(i,annual_income_mean)
+
+
+'''
 from scipy import stats
 
 df =pd.DataFrame({'Age':[int(i) for i in ds['Age']]})
 df['z_score']=stats.zscore(df['Age'])
-df_no = df.loc[df['z_score'].abs()<2.9]
+df_no = df.loc[df['z_score'].abs()<2.1060025]
 
 
 df1 =pd.DataFrame({'Num_Bank_Accounts':[int(i) for i in ds['Num_Bank_Accounts']]})
@@ -54,7 +80,7 @@ df1.loc[df1['z_score'].abs()<3.0]
 df2 =pd.DataFrame({'Monthly_Inhand_Salary':[int(i) for i in ds['Monthly_Inhand_Salary']]})
 df2['z_score']=stats.zscore(df2['Monthly_Inhand_Salary'])
 df2.loc[df1['z_score'].abs()<3.0]
-
+'''
 
 #start the splitting
 from sklearn.model_selection import train_test_split
