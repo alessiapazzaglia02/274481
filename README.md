@@ -32,12 +32,14 @@ RANDOM FOREST, it seems that all the parameters that we are using are not so goo
 
 KERNEL SVC seems to be good mostly on the tuning as we do not really need to tune anything. On the other hand, it is not interpretable as the output comes from a formula, this is why we cannot understand it. We can also notice that this model has good metrics and it is really quick.
 
-ARTIFICIAL NEURAL NETWORK are very slow as we need to let the method calculate the weights in the hidden layers and it is also not interpretable as we do not know the way the outputs are formed and why it is the output. We also need to tune some things, as the inputs, how many hidden layers, so it is not as good. Metric is really good as thanks to back-propagation the model adjusts the weights and the errors trying to minimize them. Interpretability is really really bad as we do not know how the weights are adjusted and why, so the final output cannot be explained in a clear way.
+ARTIFICIAL NEURAL NETWORKS (ANN) are very slow as we need to let the method calculate and minimize the weights in the hidden layers, but this forward and backpropagation pattern that ANN uses, leads to a very good metric, so most of the times accuracy is very high. In order to obtain suh a good result we also need to tune some parameters, as the inputs, how many hidden layers, how many epochs, the function that we want to apply, which is a long process and so it is not as good. Interpretability is really really bad as we do not know how the weights are adjusted and why, so the final output cannot be explained in a clear way.
 
 After having noticed all this, we can state that we should use as the aim of our problem is to be accurate and possibily in the less time possible:
 -	CART
 -	KERNEL
 -	KNN
+-	ANN
+(This last method is can be a plus, as the accuracy is really high, even if it takes some time, which in our problem is important, but not as much as the precision of the output).
 
 Then we started with the splitting between training, validation and test set. We have to split data in three parts:
 -	Training, used to train the model. It is the set of data that is used to train and make the model learn the hidden features/patterns in the data. 70-80%
@@ -49,5 +51,6 @@ Then, another important step that we should not forget is: Featuring! It is the 
 -	Featuring scaling, bring every data to the same scale 
 
 EXPERIMENTAL DESIGN:
+We have tried to build the classifiers using the built-in functions, and in each of them, let the parameters to be tuned by the gridsearch.
 
 
