@@ -2,13 +2,13 @@
 TITLE: 
 Credit Prediction
 
-MEMBERS: 
+**MEMBERS**: 
 Alberto de Leo (274481), Alessia Pazzaglia (269441), Matteo Policastro (276761)
 
-DESCRIPTION: 
+**DESCRIPTION**: 
 The aim of this project is to divide the users of the greatest financial company in the world into three credit score brackets: Poor, Standard and Good. This company has collected bank details and credit-related information from all over the globe, so our goal is to help it developing targeted products for each group.
 
-APPROACHES:
+**APPROACHES**:
 The first things we should do is the "data engineering and labeling". 
 We can assume that all the data are usable (we have the license to use and study them), reliable, sizeable (enough for our scope) and accessible. 
 We also have to take care of how much noisy these data are, so we have to clean them by removing all the outliers (that are extreme values that differ from most other data points in our dataset) and the null\not available values (which will be replaced using the "Golden Rule").
@@ -54,3 +54,4 @@ EXPERIMENTAL DESIGN:
 We have tried to build the classifiers using the built-in functions, and in each of them, let the parameters to be tuned by the gridsearch.
 
 
+![Matrix MLP!](./matrix_mlp.png "Confusion matrix MLP")
