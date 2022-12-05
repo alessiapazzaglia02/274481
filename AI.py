@@ -34,7 +34,7 @@ ds = ds.replace(np.nan,00)
 #df=df.fillna('NM') --> forse ha senso rimpiazzare valori con media (o mediana) usando df.mean(), quindi df=df.fillna(df.mean()), per non perdere quei dati che andranno poi elaborati e avere una stringa quando bisogna fare i conti è scomodo
 #df=df.replace(['No Data'], 'NM') --> forse ha senso rimpiazzare valori con media (o mediana) usando df.mean(), quindi df=df.replace(['No Data'], df.mean()), per non perdere quei dati che andranno poi elaborati e avere una stringa quando bisogna fare i conti è scomodo
 
-
+ds = ds.drop(columns=['id'])
 #collect data into arrays
 X = ds.iloc[:, :-1].values      
 y = ds.iloc[:, -1].values
