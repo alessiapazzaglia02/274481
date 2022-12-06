@@ -55,11 +55,10 @@ Then, another important step that we should not forget is: *Featuring*! It is th
 
 # EXPERIMENTAL DESIGN:
 We have tried to build the classifiers using the built-in functions, and in each of them we used the grid search, which is a technique for tuning hyperparameters. In fact, we have inserted some values for the parameters we wanted optimize and this method tries all the combinations.
-## BASELINE:
-We have decided to calculate the baseline by selecting the most frequent occurring class in the dataset, which is 'Standard'.
+
 ## EVALUATION METRICS:
-We have decided to look for accuracy as we want to predict their status, since it underlines if it is close to the "true value" or what you are going for.
-While precision is the ability to get the same thing over and over again and so it is not neededd for our problem. 
+We have decided to look for accuracy as it is used when the goal of the model is to identify how may items were correctly classified. Moreover, we prefer looking at accuracy as we have a dataset that is pretty balanced.
+While precision is the ability to get the same thing over and over again and so it is not neededd for our problem. In contrast, the F1 Score is used when the goal is to identify the percentage of correctly classified items.
 
 In the **Kernel SVC** we decided to tune the *kernel*, with the choices of 'linear', 'rbf', 'poly' and 'sigmoid'. Then we tuned also the *'C'* that is the regularization parameter and we chose the range [0.1,1, 10] and finally, since this model was taking *definitely too long*, we decided to put *'max_iter'* in order to let the process stop at the 1000 iteration even if it had not converged yet.
 
