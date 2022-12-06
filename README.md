@@ -11,9 +11,9 @@ The aim of this project is to divide the users of the greatest financial company
 # APPROACHES:
 The first things we should do is the "data engineering and labeling". 
 We can assume that all the data are usable (we have the license to use and study them), reliable, sizeable (enough for our scope) and accessible. 
-We also have to take care of how much noisy these data are, so we have to clean them by removing all the outliers (that are extreme values that differ from most other data points in our dataset) and replace, usinge the Golde Rule, the null\not available values. In fact, we have replaced the null values with the mean if the variable was numberical and with the mode if the variable was categorical.
-Then we have also dropped some columns, such as id, occupation as we do not care about the job of each people as a student can be a famous tiktoker who earns much more than a new lawyer, and many others.
-Then we should give a look to our data, in order to see how values are correlated, their statistical information (mean, standard deviation etc.) in order to have a better understanding of the problem.
+We also have to take care of how much noisy these data are, so we have to clean them by removing all the outliers, that are extreme values that differ from most other data points in our dataset.
+Then we have also dropped the column id as we thought that was not usefull in building the models.
+Then we should give a look to our data, in order to see how values are correlated, their statistical information (mean, standard deviation etc.) and their trends  in order to have a better understanding of the problem.
 After having done the EDA, we can now start analysing all the possibilities that we have in order to solve the problem. Since we have to predict a target it is a **classification problem**. 
 All the methods we can use are:
 -	KNN
@@ -49,6 +49,7 @@ Then we started with the splitting between training, validation and test set. We
 But partitioning is not that easy, as we cannot always use the randomization, in some cases we need the group partitioning in order not to train on the test or validation data. 
  > REMEMBER TO NEVER TRAIN ON THE TEST DATA!!! 
 
+For this reason, after having divided our data in training and test sets, we can fill the null values, in order not to know in advance these missing values. These will be replaced using the Golde Rule, and so using the mean if the variable was numberical and with the mode if the variable was categorical.
 Then, another important step that we should not forget is: *Featuring*! It is the process of transforming a raw example into a feature vector:
 -	One-hot encoding, in order to convert categorical data into numerical values, do in not giving importance to data and also excluding dummy variables
 -	Featuring scaling, bring every data to the same scale 
