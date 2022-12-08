@@ -45,7 +45,7 @@ After having noticed all this, we can state that we should use as the aim of our
 
 Then we started with the splitting between training, validation and test set. We have to split data in three parts:
 -	*Training*, used to train the model. It is the set of data that is used to train and make the model learn the hidden features/patterns in the data. 70-80%
--	*Validation*, to tune the model. Not seen by the algorithm, used to estimate the performance of different algorithms. The validation set is a set of data, separate from the training set, that is used to validate our model performance during training. This validation process gives information that helps us tune the model’s hyperparameters and configurations accordingly.
+-	*Validation*, to tune the model. Not seen by the algorithm, used to estimate the performance of different algorithms. The validation set is a set of data, separate from the training set, that is used to validate our model performance during training. This validation process gives information that helps us tune the model's hyperparameters and configurations accordingly.
 -	*Test*, to test its performance. Not seen by the algorithm, it evaluates the performance of the model. 20-30%
 But partitioning is not that easy, as we cannot always use the randomization, in some cases we need the group partitioning in order not to train on the test or validation data. 
  > REMEMBER TO NEVER TRAIN ON THE TEST DATA!!! 
@@ -65,7 +65,8 @@ Remember that the F1 score is balancing precision and recall on the positive cla
 
 ## Tuning:
 
-In the **Kernel SVC** we decided to tune the *kernel*, with the choices of 'linear', 'rbf', 'poly' and 'sigmoid'. Then we tuned also the *'C'* that is the regularization parameter and we chose the range [0.1,1, 10] and finally, since this model was taking *definitely too long*, we decided to put *'max_iter'* in order to let the process stop at the 2000 iteration even if it had not converged yet.
+In the **Kernel SVC** we decided to tune the *kernel*, with the choices of 'linear' and 'rbf'. Then we tuned also the *'C'* that is the regularization parameter and we chose the range 
+[0.1 ,1] and finally, since this model was taking *definitely too long*, we decided to put *'max_iter'* in order to let the process stop at the 2000 iteration even if it had not converged yet.
 
 For the second model (**XGBOOST**), we had some parameters to tune, as: *'max_depth'* which indicates the maximum depth of a tree. Increasing this value will make the model more complex and more likely to overfit. Then *'lambda'* which is a L2 regularization term on weights, *'alpha'*, is a L1 regularization term on weights.
 Finally, *'colsample_bytree'*, represents the subsample ratio of columns when constructing each tree, *'learning_rate'* is loguniform distribution and then *'min_child_weight'*, is the minimum sum of instance weight (hessian) needed in a child.
@@ -73,33 +74,43 @@ From these tries we discovered that having too much hyperparameters to tune usin
 
 In the **KNN** model we had to tune, using the grid search, 'n_neighbors' and so the number of neihgbors it had to take into account, the 'metric': 'manhattan', 'euclidean', 'cosine' and the 'weights' in order to decide the influence of each neighbour, it can be 'uniform' (every neighbour has the same influence) or 'distance' (the closer are the most important).
 
-Finally, in the **Artificial Neural Network**, we have tuned the activation function, which is the function that 'activates' the neurons and it is usefull to bring non-linearity in the network. Moreover, we have tuned the 'learning_rate_init' whihc controls the step-size in updating the weights.
+Finally, in the **Artificial Neural Network**, we have tuned the activation function, which is the function that 'activates' the neurons and it is useful to bring non-linearity in the network. Moreover, we have tuned the 'learning_rate_init' which controls the step-size in updating the weights and the number of hidden layers as well as the number of nodes for each level.
 
 # RESULTS:
 After having trained the model we tested it. From this we have discovered that:
 ## KERNEL SVC:
 
-![Matrix SVC!](./images/matrix_svc.png "Confusion matrix SVC")
+![Matrix SVC!](./images/SVC_matrix.png "Confusion matrix SVC")
 
 ## XGBOOST:
 
-![Matrix XGBOOST!](./images/matrix_xgb.png "Confusion matrix XGBOOST")
+![Matrix XGBOOST!](./images/xgb_matrix.png "Confusion matrix XGBOOST")
 
 ## KNN:
 
-![Matrix KNN!](./images/matrix_knn.png "Confusion matrix KNN")
+![Matrix KNN!](./images/knn_matrix.png "Confusion matrix KNN")
 
 ## ANN:
 
-![Matrix ANN!](./images/matrix_mlp.png "Confusion matrix ANN")
+![Matrix ANN!](./images/ann_matrix.png "Confusion matrix ANN")
 
 ## FROM THESE RESULTS:
-From these results we can notice that the *better model* to use for this problem, *looking at metrics*,  is surely **XGBOOST**, as its accuracy is higher than the other models, while the *worst* is *Kernel SVC*.
-While if we are interested in *timing* we can underline the fact that *all* the models that we are taking into account give us the output in 30 minuts, more or less.
+From our intuition we expected that the best model should have been the **XGBOOST** but looking at the result it came out that in our case the **KNN** yields better outcome.
+Looking at *metrics* the accuracy of the models is as follows:
+-   Kernel SVC: 57%;
+-   XGBoost: 75%;
+-   KNN: 77%;
+-   ANN: 71%.
 
-So if we have to decide which model to use in order to solve most efficiently our problem we should look at the metric, as we need accurate results rather than in a short time (even if the model cannot take weeks for running as data can change and then becoming no more reliable). 
-This is why it is better to use **XGBOOST**.
+While if we are interested in *timing* we can underline the fact that:
+-   Kernel SVC: 50 minutes;
+-   XGBoost: 2 hours;
+-   KNN: 1 hour and 30 minutes;
+-   ANN: 2 hours and 50 minutes.
+
+ In order to decide which model to use in order to solve most efficiently our problem we should look at the metric, as we need accurate results rather than in a short time (even if the model cannot take weeks for running as data can change and then becoming no more reliable). 
+This is why it is better to use **KNN**.
 
 
 ## OUR OPINION:
-We were expecting such result as XGBOOST model is usually recommended for classification (and regression) problems with tabular data (data that are organized in a table with rows and columns). This is why, for the future, we are going to trust XGBOOST for solving similar problems. 
+We were not expecting such result as we thought that XGBOOST model would perform better in problems with tabular data (data that are organized in a table with rows and columns). However, KNN's performance for both timing and metric is not too far from the one of XGBOOST. 
