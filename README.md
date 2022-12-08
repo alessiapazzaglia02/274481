@@ -80,7 +80,7 @@ Finally, in the **Artificial Neural Network**, we have tuned the activation func
 After having trained the model we tested it. From this we have discovered that:
 ## KERNEL SVC:
 
-![Matrix SVC!](./images/svc_matrix.png "Confusion matrix SVC")
+![Matrix SVC!](./images/svc_matrix.PNG "Confusion matrix SVC")
 
 ## XGBOOST:
 
